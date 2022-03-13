@@ -5,7 +5,7 @@
          	const queryString = window.location.search;
          	const urlParams = new URLSearchParams(queryString);
          	const tmdbID = urlParams.get('id')
-         	const _x = `https://autoembed.xyz/movie/tmdb/${tmdbID}`
+         	const _x = `https://www.2embed.ru/embed/tmdb/movie?id=${tmdbID}`
          	const link = document.getElementById('site-iframe');
          	link.src = _x;
          };
