@@ -1,0 +1,29 @@
+<html>
+   <head>
+      <script>
+         window.onload = function() {
+         	const queryString = window.location.search;
+         	const urlParams = new URLSearchParams(queryString);
+         	const linkID = urlParams.get('link');
+            const qualityID = urlParams.get('q');
+                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=${link}`;
+                  var Fxhr = new XMLHttpRequest();
+                  Fxhr.open("GET", Furl);
+                  Fxhr.onreadystatechange = function () {
+                     if (Fxhr.readyState === 4) {
+                        if(qualityID === '1080') location.replace(JSON.parse(Fxhr.response)[0].mp4);
+                        if(qualityID === '720') location.replace(JSON.parse(Fxhr.response)[1].mp4);
+                        if(qualityID === '480') location.replace(JSON.parse(Fxhr.response)[2].mp4);
+                        if(qualityID === '360') location.replace(JSON.parse(Fxhr.response)[3].mp4);
+                     }};
+                  Fxhr.send();
+         }
+      </script> 
+      <title>Alex</title>
+      <link href="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/icons/iconNew.png" rel="shortcut icon" type="image/x-icon">
+      <link href="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/icons/iconNew.png" rel="apple-touch-icon">
+      <meta content="width=320, user-scalable=no" name="viewport">
+   </head>
+   <body style="background-color:#15141a;margin:8px;display:block;"> 
+   </body>
+</html>
