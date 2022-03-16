@@ -6,7 +6,7 @@
          	const urlParams = new URLSearchParams(queryString);
          	const linkID = urlParams.get('link');
             const qualityID = urlParams.get('q');
-                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=${link}`;
+                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=${linkID}`;
                   var Fxhr = new XMLHttpRequest();
                   Fxhr.open("GET", Furl);
                   Fxhr.onreadystatechange = function () {
