@@ -2,6 +2,11 @@
    <head>
       <script>
          window.onload = function() {
+            let player = new Plyr('#player', {
+                           controls: ['play-large', 'play', 'rewind', 'fast-forward', 'current-time', 'duration', 'progress', 'mute', 'settings', 'volume', 'fullscreen'],
+                           settings: ['quality', 'speed', 'loop'],
+                           ratio: '16:9'
+            });
          	const queryString = window.location.search;
          	const urlParams = new URLSearchParams(queryString);
          	const tmdbID = urlParams.get('id');
@@ -11,7 +16,7 @@
 
             var url = `https://api.themoviedb.org/3/search/tv?api_key=d0aa8ae113702ff0e14262d798b063b0&language=en-US&page=1&query=${query}`;
             var xhr = new XMLHttpRequest();
-            hr.open("GET", url);
+            xhr.open("GET", url);
             xhr.onreadystatechange = function () {
                if (xhr.readyState === 4) {
                   let slug = JSON.parse(xhr.response).results[0].name.replace(/[^a-z0-9]+|\s+/gmi, " ").replace(/\s+/g, '-').toLowerCase();
@@ -24,11 +29,6 @@
                         let res720 = JSON.parse(Fxhr.response)[1].mp4
                         let res480 = JSON.parse(Fxhr.response)[2].mp4
                         let res360 = JSON.parse(Fxhr.response)[3].mp4
-
-                        let player = new Plyr('#player', {
-                           controls: ['play-large', 'play', 'rewind', 'fast-forward', 'current-time', 'duration', 'progress', 'mute', 'volume', 'fullscreen'],
-                           ratio: '16:9'
-                        });
 
                         player.source = {
                            type: 'video',
@@ -67,8 +67,33 @@
       <link href="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/icons/iconNew.png" rel="apple-touch-icon">
       <meta content="width=320, user-scalable=no" name="viewport">
       <script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
+      <link rel="stylesheet" href="https://cdn.plyr.io/3.6.9/plyr.css" />
+      <style>
+         :root {
+         --plyr-color-main: #23222b;
+         --plyr-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         --plyr-menu-background: #28282824;
+         --plyr-menu-color: #ffffff;
+         }
+
+         .plyr--fullscreen-active video {
+         max-height: 100% !important
+         }
+         
+         video {
+         object-fit: contain;
+         position: absolute;
+         top: 0px;
+         right: 0px;
+         bottom: 0px;
+         left: 0px;
+         max-height: 100%;
+         max-width: 100%;
+         margin: auto;
+         }
+      </style>
    </head>
-   <body>
+   <body style="background-color:#15141a;margin:8px;display:block;">
       <video id="player" autoplay controls>
          <source src="" type="video/mp4" />
        </video>     
