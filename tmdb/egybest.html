@@ -9,18 +9,8 @@
             });
          	const queryString = window.location.search;
          	const urlParams = new URLSearchParams(queryString);
-         	const tmdbID = urlParams.get('id');
-            const query = encodeURIComponent(tmdbID)
-         	const sN = urlParams.get('s');
-         	const eN = urlParams.get('ep');
-
-            var url = `https://api.themoviedb.org/3/search/tv?api_key=d0aa8ae113702ff0e14262d798b063b0&language=en-US&page=1&query=${query}`;
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.onreadystatechange = function () {
-               if (xhr.readyState === 4) {
-                  let slug = JSON.parse(xhr.response).results[0].name.replace(/[^a-z0-9]+|\s+/gmi, " ").replace(/\s+/g, '-').toLowerCase();
-                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=https://aero.egybest.co/episode/${slug}-season-${sN}-ep-${eN}`;
+         	const linkID = urlParams.get('link');
+                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=${linkID}`;
                   var Fxhr = new XMLHttpRequest();
                   Fxhr.open("GET", Furl);
                   Fxhr.onreadystatechange = function () {
@@ -58,8 +48,6 @@
                         };
                      }};
                   Fxhr.send();
-               }};
-            xhr.send();
          };
       </script> 
       <title>Alex</title>
