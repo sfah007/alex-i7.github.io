@@ -1,0 +1,76 @@
+<html>
+   <head>
+      <script>
+         window.onload = function() {
+         	const queryString = window.location.search;
+         	const urlParams = new URLSearchParams(queryString);
+         	const tmdbID = urlParams.get('id');
+            const query = encodeURIComponent(tmdbID)
+         	const sN = urlParams.get('s');
+         	const eN = urlParams.get('ep');
+
+            var url = `https://api.themoviedb.org/3/search/tv?api_key=d0aa8ae113702ff0e14262d798b063b0&language=en-US&page=1&query=${query}`;
+            var xhr = new XMLHttpRequest();
+            hr.open("GET", url);
+            xhr.onreadystatechange = function () {
+               if (xhr.readyState === 4) {
+                  let slug = JSON.parse(xhr.response).results[0].name.replace(/[^a-z0-9]+|\s+/gmi, " ").replace(/\s+/g, '-').toLowerCase();
+                  var Furl = `https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api.herokuapp.com/egybest?url=https://aero.egybest.co/episode/${slug}-season-${sN}-ep-${eN}`;
+                  var Fxhr = new XMLHttpRequest();
+                  Fxhr.open("GET", Furl);
+                  Fxhr.onreadystatechange = function () {
+                     if (Fxhr.readyState === 4) {
+                        let res1080 = JSON.parse(Fxhr.response)[0].mp4
+                        let res720 = JSON.parse(Fxhr.response)[1].mp4
+                        let res480 = JSON.parse(Fxhr.response)[2].mp4
+                        let res360 = JSON.parse(Fxhr.response)[3].mp4
+
+                        let player = new Plyr('#player', {
+                           controls: ['play-large', 'play', 'rewind', 'fast-forward', 'current-time', 'duration', 'progress', 'mute', 'volume', 'fullscreen'],
+                           ratio: '16:9'
+                        });
+
+                        player.source = {
+                           type: 'video',
+                           title: 'video',
+                           sources: [
+                              {
+                                 src: res360,
+                                 type: 'video/mp4',
+                                 size: 360,
+                              },
+                              {
+                                 src: res480,
+                                 type: 'video/mp4',
+                                 size: 480,
+                              },
+                              {
+                                 src: res720,
+                                 type: 'video/mp4',
+                                 size: 720,
+                              },
+                              {
+                                 src: res1080,
+                                 type: 'video/mp4',
+                                 size: 1080,
+                              },
+                           ],
+                        };
+                     }};
+                  Fxhr.send();
+               }};
+            xhr.send();
+         };
+      </script> 
+      <title>Alex</title>
+      <link href="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/icons/iconNew.png" rel="shortcut icon" type="image/x-icon">
+      <link href="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/icons/iconNew.png" rel="apple-touch-icon">
+      <meta content="width=320, user-scalable=no" name="viewport">
+      <script src="https://cdn.plyr.io/3.6.12/plyr.polyfilled.js"></script>
+   </head>
+   <body>
+      <video id="player" autoplay controls>
+         <source src="" type="video/mp4" />
+       </video>     
+   </body>
+</html>
