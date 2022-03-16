@@ -11,10 +11,10 @@
                   Fxhr.open("GET", Furl);
                   Fxhr.onreadystatechange = function () {
                      if (Fxhr.readyState === 4) {
-                        if(qualityID === '1080') location.replace(JSON.parse(Fxhr.response)[0].mp4);
-                        if(qualityID === '720') location.replace(JSON.parse(Fxhr.response)[1].mp4);
-                        if(qualityID === '480') location.replace(JSON.parse(Fxhr.response)[2].mp4);
-                        if(qualityID === '360') location.replace(JSON.parse(Fxhr.response)[3].mp4);
+                        if(qualityID === '1080') location.href = JSON.parse(Fxhr.response)[0].mp4;
+                        if(qualityID === '720') location.href = JSON.parse(Fxhr.response)[1].mp4;
+                        if(qualityID === '480') location.href = JSON.parse(Fxhr.response)[2].mp4;
+                        if(qualityID === '360') location.href = JSON.parse(Fxhr.response)[3].mp4;
                      }};
                   Fxhr.send();
          }
