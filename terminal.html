@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
+    <link rel="icon" type="image/x-icon" href="./favicon.png">
+    <meta property="og:title" content="Terminal | Alex" />
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/Alex-i7/alex-i7.github.io/main/files/imageThumb.jpg" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#3767CE">
+</head>
+
+<body>
+    <script>
+        $('body').terminal({
+            egybest: async function (link, quality) {
+                this.echo('Getting link, Please wait...')
+                const prop = await fetch(`https://proxy-1.alxi7.workers.dev/?destination=https://zawmedia-api2.herokuapp.com/egybest?url=${link}`).then((d) => d.json());
+                let videoUrl = '';
+                if (quality === 1080) videoUrl = prop[0];
+                if (quality === 720) videoUrl = prop[1];
+                if (quality === 480) videoUrl = prop[2];
+                if (quality === 360) videoUrl = prop[3];
+                if (videoUrl.name === undefined) this.echo('Invalid inputs, please check the link or quality and try again.')
+                else this.echo($(`<a href="${videoUrl.mp4}" target="_blank">${videoUrl.name}</a>`));
+            },
+            xemovie: async function (link) {
+                this.echo('Getting link, Please wait...')
+                const res = await fetch(`https://proxy-1.alxi7.workers.dev/?destination=${link}`).then(d => d.text());
+                const scripts = Array.from(new DOMParser().parseFromString(res, "text/html").querySelectorAll('script'));
+                const prop = scripts.find((e) => e.textContent.includes("s3.xemovie.com"));
+                let data = '';
+                if (prop) {
+                    data = prop.textContent.replace(/\s+/g, '').split(',').find((e) => e.includes("s3.xemovie.com")).split('"').find((e) => e.includes('s3.xemovie.com'))
+                    if (data.endsWith(".m3u8")) data = "";
+                    let mp4 = $(`<a href="${data}" target="_blank">Video Link</a>`);
+                    this.echo(mp4);
+                }
+            },
+            netflix: function () {
+                let cookie = $(`<a href="https://alxi7.cf/nfcookies" target="_blank">Download cookies 🍪</a>`);
+                this.echo(cookie);
+            },
+            watchparty: function() {
+                this.echo($(`<a href="https://alxi7.cf/party" target="_blank">Open WatchParty 🍿</a>`))
+            },
+            help: function () { 
+                let helpText = `Get episode link from EgyBest: egybest [link] [quality: 1080, 720, 480, 360]\nGet episode link from Xemovie: xemovie [link]\nGet the latest Netflix cookies: netflix\n Get WatchParty link: watchparty`
+                this.echo(helpText);
+            }
+        }, {
+            greetings: "Alex's Terminal [Version 1.0.0.0]",
+        });
+    </script>
+</body>
+
+</html>
